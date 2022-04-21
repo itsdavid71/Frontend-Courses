@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аттрибуты</title>
+</head>
+<body>
+    
+    <div id="elem" about="elephant"></div>
+
+    <div id="message" data-message-text="О, привет!" data-from="Давид" data-country="Россия" data-ip="85.251.231.74">Элемент с аттрибутом data</div>
+
+
+    <style>
+        #links {
+            list-style: none;
+        }
+        #links a {
+            text-decoration: none;
+            font-size: 18px;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            margin: 5px 0;
+            display: inline-block;
+            padding: 10px;
+            font-weight: bold;
+            color: #222;
+        }
+        #links .orange {
+            background: rgb(247, 158, 26);
+            color: #fff;
+        }
+    </style>
+    <ul id="links">
+        <li><a href="http://google.com">http://google.com</a></li>
+        <li><a href="/tutorial">/tutorial.html</a></li>
+        <li><a href="local/path">local/path</a></li>
+        <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+        <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+        <li><a href="http://internal.com/test">http://internal.com/test</a></li>
+    </ul>
+
+
+
+
+    <!-- Tooltip -->
+
+    <style>
+        .tooltip_item {
+            position: relative;
+        }
+        .tooltip_item::before {
+            content: attr(data-tooltip);
+            display: none;
+            position: absolute;
+            bottom: -70px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            padding: 10px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 5px 5px 5px rgba(34, 34, 34, 0.2);
+            border: 1px solid #222;
+        }
+
+        .tooltip_item.hover::before {
+            display: block;
+        }
+    </style>
+    <div id="tooltips">
+        <button class="tooltip_item" data-tooltip="Наведи на вторую кнопку">Первая подсказка</button>
+        <button class="tooltip_item" data-tooltip="Сегодня 19 апреля">Вторая подсказка</button>
+    </div>
+
+    <script>
+
+        const tooltipField = document.getElementById('tooltips');
+
+        
+        tooltipField.onmouseover = function(e) {
+            if (!e.target.classList.contains('tooltip_item')) return;
+            console.log(e.target.dataset.tooltip);
+            e.target.classList.add('hover');
+        }
+        tooltipField.onmouseout = function(e) {
+            e.target.classList.remove('hover');
+        }
+
+        let linksLength = links.children.length;
+        for (let i = 0; i < links.children.length; i++) {
+            let linkItem = links.children[i];
+            let linkTag = linkItem.querySelector('a');
+            let linkHref = linkTag.getAttribute('href');
+            if (linkHref.includes('://') && !linkHref.includes('internal.com')) {
+                linkTag.classList.add('orange');
+            } 
+        }
+
+        // Dataset Example
+        // let messageText = message.dataset.messageText;
+        // let messateName = message.dataset.from;
+        // let messageCountry = message.dataset.country;
+        // let messageIp = message.dataset.ip;
+
+        // for (let attr of message.attributes) {
+        //     console.log(`${attr.name} = ${attr.value}`);
+        // }
+
+        // elem.setAttribute('message', 'Hello');
+        // for (let attr of elem.attributes) {
+        //     console.log(`${attr.name} = ${attr.value}`);
+        // }
+
+
+    </script>
+</body>
+</html>
